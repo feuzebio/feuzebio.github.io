@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ aula.titulo }} - Área do Aluno</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; background-color: #f9f9f9; }
+        .header { background-color: #fff; padding: 1rem 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { margin: 0; font-size: 1.5rem; color: #333; }
+        .header a { color: #007bff; text-decoration: none; }
+        .container { max-width: 960px; margin: 2rem auto; padding: 0; }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Proporção 16:9 */
+            height: 0;
+            overflow: hidden;
+            background-color: #000;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .conteudo-aula {
+            margin-top: 2rem;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        h2 { color: #444; }
+        .material-download a {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .material-download a:hover { background-color: #218838; }
+        .nav-links { margin-top: 2rem; text-align: center; }
+        .nav-links a { color: #007bff; text-decoration: none; font-size: 1rem; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>{{ aula.titulo }}</h1>
+        <a href="{{ url_for('dashboard') }}">Voltar ao Painel</a>
+    </header>
+
+    <div class="container">
+        <div class="video-container">
+            <!--
+              PONTO-CHAVE DA PROTEÇÃO:
+              O vídeo não é carregado diretamente do Google Drive. Em vez disso, ele aponta
+              para uma rota no nosso próprio servidor Flask. Essa rota atuará como um "proxy":
+              ela verificará o login do usuário e só então buscará e transmitirá o vídeo.
+              O link real do Google Drive nunca é exposto no navegador do cliente.
+            -->
+            <iframe
+                src="{{ url_for('conteudo_protegido', file_id=aula.video_id) }}"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="conteudo-aula">
+            <h2>Material de Apoio</h2>
+            <p>Baixe a apostila em PDF para acompanhar a aula.</p>
+            <div class="material-download">
+                 <!-- O link de download também usará o proxy para proteção -->
+                <a href="{{ url_for('conteudo_protegido', file_id=aula.material_id) }}" target="_blank">Baixar Apostila (PDF)</a>
+            </div>
+        </div>
+
+        <div class="nav-links">
+             <a href="{{ url_for('dashboard') }}">← Voltar para a lista de aulas</a>
+        </div>
+    </div>
+</body>
+</html>

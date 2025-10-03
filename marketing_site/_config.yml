@@ -1,0 +1,46 @@
+# --- Configuração Básica do Site Jekyll ---
+
+# Título e descrição do site (usado nos metadados e no cabeçalho)
+title: Curso de Inglês Exemplo
+email: contato@exemplo.com
+description: >- # A descrição pode ter múltiplas linhas.
+  Aprenda inglês de forma eficaz com nossa metodologia inovadora.
+  Aulas online com conteúdo exclusivo.
+
+# URL base do site.
+# Para desenvolvimento, é "/"
+# Em produção, será o seu domínio, ex: "https://www.seusite.com"
+baseurl: "" # o subdiretório do seu site, e.g. /blog
+url: "" # o domínio base & protocolo do seu site, e.g. http://example.com
+
+# --- Configurações de Build ---
+# Jekyll irá ignorar estes arquivos/pastas ao construir o site.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Define o tema do site (opcional, mas bom para começar)
+# Vamos usar o tema padrão, minima.
+theme: minima
+
+# --- Plugins ---
+# Lista de plugins a serem usados pelo Jekyll.
+plugins:
+  - jekyll-feed
+
+# --- Customização ---
+# Link para a "Área do Aluno" que será exibido no cabeçalho
+header_pages:
+  - area-do-aluno.md
+
+# Configurações do tema Minima (opcional)
+minima:
+  social_links:
+    twitter: jekyllrb
+    github:  jekyll
+    # Adicione outras redes sociais aqui

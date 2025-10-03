@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Aluno</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; background-color: #f9f9f9; }
+        .header { background-color: #fff; padding: 1rem 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { margin: 0; font-size: 1.5rem; color: #333; }
+        .header a { color: #007bff; text-decoration: none; }
+        .container { max-width: 800px; margin: 2rem auto; padding: 2rem; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+        h2 { color: #444; }
+        .aula-lista { list-style: none; padding: 0; }
+        .aula-item { background-color: #f4f4f4; border: 1px solid #ddd; padding: 1rem; margin-bottom: 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; }
+        .aula-item a { text-decoration: none; color: #0056b3; font-weight: bold; }
+        .status { padding: 0.3rem 0.8rem; border-radius: 12px; color: white; font-size: 0.8rem; }
+        .status.concluida { background-color: #28a745; }
+        .status.pendente { background-color: #ffc107; color: #333; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Meu Painel</h1>
+        <div>
+            <span>Olá, {{ g.user }}</span> |
+            <a href="{{ url_for('logout') }}">Sair</a>
+        </div>
+    </header>
+    <div class="container">
+        <h2>Minhas Aulas</h2>
+        <ul class="aula-lista">
+            {% for aula in aulas %}
+            <li class="aula-item">
+                <a href="{{ url_for('aula', id=aula.id) }}">{{ aula.titulo }}</a>
+                {% if aula.concluida %}
+                    <span class="status concluida">Concluída</span>
+                {% else %}
+                    <span class="status pendente">Pendente</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
